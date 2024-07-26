@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  springboot-app:
+    image: openjdk:17
+    container_name: springboot-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:h2:mem:ecommerce
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    command: ["java", "-jar", "/app/target/ecommerce-0.0.1-SNAPSHOT.jar"]
+
+  h2-db:
+    image: oscarfonts/h2
+    container_name: h2-db
+    ports:
+      - "1521:1521"
+      - "81:81"
